@@ -1,0 +1,112 @@
+.TH VPI 1 "@CMAKE_BUILD_DATE@" "VPI @PROJECT_VERSION@" "Versa Package Installer"
+.SH NAME
+vpi \- Versa Package Installer
+.SH SYNOPSIS
+.B vpi
+[\fIOPTIONS\fR] \fICOMMAND\fR [\fIARGUMENTS\fR]
+.SH DESCRIPTION
+VPI is a cross-platform package manager that installs packages from the Versa registry at versas.my.id.
+Packages are distributed as .vers files (renamed ZIP archives) containing a vers.json manifest.
+.SH COMMANDS
+.TP
+.B install \fIpackage\fR
+Download and install a package from versas.my.id/package/<name>.vers
+.TP
+.B remove \fIpackage\fR
+Uninstall a previously installed package.
+.TP
+.B update \fIpackage\fR
+Update an installed package to its latest version.
+.TP
+.B list
+List all installed packages with version, developer, and size.
+.TP
+.B view \fIpackage\fR
+Show detailed metadata of an installed package.
+.TP
+.B search \fIquery\fR
+Search for packages on the versas.my.id registry.
+.TP
+.B info \fIpackage\fR
+Show remote package details before installing.
+.TP
+.B cache [\fIsubcommand\fR]
+Manage the local package cache. Subcommands: clear, size.
+.TP
+.B version
+Display the VPI version.
+.TP
+.B help
+Show usage information.
+.SH OPTIONS
+.TP
+.B --verbose
+Enable detailed output including file listing and HTTP info.
+.TP
+.B --no-color
+Disable ANSI color output.
+.TP
+.B --force
+Skip confirmation prompts and force operations.
+.TP
+.B --dry-run
+Simulate operations without making any changes.
+.SH VERS PACKAGE FORMAT
+A .vers file is a standard ZIP archive renamed with the .vers extension.
+It MUST contain a \fBvers.json\fR file at the root level with these fields:
+.PP
+.RS 4
+.nf
+{
+  "nama":      "package-name",
+  "versi":     "1.0.0",
+  "developer": "Developer Name",
+  "lisensi":   "MIT"
+}
+.fi
+.RE
+.PP
+Optional fields: description, homepage.
+.SH FILES
+.TP
+.I ~/.local/share/vpi/packages/
+Installed packages (Linux)
+.TP
+.I ~/Library/Application Support/vpi/packages/
+Installed packages (macOS)
+.TP
+.I %APPDATA%\\vpi\\packages\\
+Installed packages (Windows)
+.SH ENVIRONMENT
+.TP
+.B XDG_DATA_HOME
+Override default install directory on Linux.
+.TP
+.B XDG_CACHE_HOME
+Override default cache directory on Linux.
+.SH EXAMPLES
+.PP
+Install a package:
+.RS 4
+vpi install mypackage
+.RE
+.PP
+List all installed packages:
+.RS 4
+vpi list
+.RE
+.PP
+View package details:
+.RS 4
+vpi view mypackage
+.RE
+.PP
+Remove a package:
+.RS 4
+vpi remove mypackage
+.RE
+.SH AUTHOR
+Versas Team <contact@versas.my.id>
+.SH SEE ALSO
+.BR curl (1),
+.BR zip (1)
